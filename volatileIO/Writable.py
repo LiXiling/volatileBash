@@ -8,6 +8,9 @@ class Writable(object):
     def toString(self):
         pass
 
+    def __str__(self):
+        return self.toString()
+
 
 class Comment(Writable):
     def __init__(self, str):

@@ -22,6 +22,6 @@ class ScriptWriter:
 
         f = open(self.path, 'a')
         for writable in self.lines:
-            print writable.toString()
-            f.write(' & ' + writable.toString())
+            print str(writable)
+            f.write(' & ' + str(writable))
         f.close()

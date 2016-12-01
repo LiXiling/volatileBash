@@ -1,17 +1,20 @@
 from volatileIO.Writable import Writable
 
 class Application(Writable):
-    def __init__(self, cmdName):
-        self.cmdName = cmdName
+    def __init__(self, cmd):
+        self.cmd = cmd
         self.args = []
 
     def addArg(self, arg):
         self.args.append(arg)
         return self
 
-    def toString(self):
-        string = str(self.cmdName)
-
+    def _buildArgString(self):
+        string = ""
         for arg in self.args:
             string += " " + arg
+
         return string
+
+    def toString(self):
+        return self.cmd + self._buildArgString()
