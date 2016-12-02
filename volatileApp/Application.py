@@ -18,3 +18,10 @@ class Application(Writable):
 
     def toString(self):
         return self.cmd + self._buildArgString()
+
+class TerminalApplication(Application):
+    def __init__(self, cmd):
+        super(TerminalApplication, self).__init__(cmd)
+
+    def toString(self):
+        return "(gnome-terminal -x sh -c \"" + self.cmd + self._buildArgString() + "; bash\")"

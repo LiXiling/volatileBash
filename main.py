@@ -15,7 +15,7 @@ script = (
     ScriptWriter(outDir + "script.sh")
         .add(firefox)
         .add(gedit)
-        #.add(vim) #Unfinished
+        .add(vim) #Unfinished
         .flush()
 )
 
