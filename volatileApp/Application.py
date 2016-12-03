@@ -1,5 +1,6 @@
 from volatileIO.Writable import Writable
 
+
 class Application(Writable):
     def __init__(self, cmd):
         self.cmd = cmd
@@ -23,6 +24,7 @@ class Application(Writable):
         string = "sudo apt-get -y install {}".format(self.cmd)
 
         return string
+
 
 class TerminalApplication(Application):
     def __init__(self, cmd):

@@ -8,7 +8,6 @@ class Browser(Application):
         else:
             super(Browser, self).__init__("firefox")
 
-
     def visitPage(self, url):
         self.addArg(url)
         return self

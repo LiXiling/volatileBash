@@ -1,4 +1,3 @@
-from IPython.core.prefilter import EmacsChecker
 from volatileApp import Editor
 from volatileApp.Browser import Browser
 from volatileIO.EMLWriter import EMLWriter

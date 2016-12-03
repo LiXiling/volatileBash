@@ -1,5 +1,6 @@
-import os
 import abc
+import os
+
 
 class FileCreator(object):
     __metaclass__ = abc.ABCMeta

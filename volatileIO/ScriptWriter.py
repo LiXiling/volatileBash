@@ -1,5 +1,6 @@
-import Writable
 import os
+
+import Writable
 from FileCreator import FileCreator
 from volatileApp.Application import Application
 
@@ -40,20 +41,28 @@ class ScriptWriter(FileCreator):
 
         return content
 
-    def flush(self):
+    def _makeInstaller(self):
+        installerPath = os.path.dirname(self.filePath) + '/installer.sh'
+
+        self._createFile(installerPath)
+
+        f = open(installerPath, 'a')
+        for writable in self.writables:
+            if isinstance(writable, Application):
+                f.write(writable.install() + '\n')
+        f.close()
+
+        return self
+
+    def _makeScript(self):
         self._createFile()
 
         f = open(self.filePath, 'a')
         f.write(self.getContent())
         f.close()
 
-        installerPath = os.path.dirname(self.filePath) + '/installer.sh'
-        self._createFile(installerPath)
-        f = open(installerPath, 'a')
-        for writable in self.writables:
-            if isinstance(writable, Application):
-                print writable.cmd
-                f.write(writable.install() + '\n')
+        return self
 
-        f.close()
-
+    def flush(self):
+        self._makeScript()
+        self._makeInstaller()
