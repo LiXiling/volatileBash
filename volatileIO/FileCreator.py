@@ -7,14 +7,17 @@ class FileCreator(object):
     def __init__(self, filePath):
         self.filePath = filePath
 
-    def _createFile(self):
+    def _createFile(self, filePath=None):
 
-        dir = os.path.dirname(self.filePath)
+        if filePath is None:
+            filePath = self.filePath
+
+        dir = os.path.dirname(filePath)
 
         if not os.path.exists(dir):
             os.makedirs(dir)
 
-        f = open(self.filePath, 'w')
+        f = open(filePath, 'w')
         f.close()
 
     @abc.abstractmethod

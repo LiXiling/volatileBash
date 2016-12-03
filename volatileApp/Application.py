@@ -19,6 +19,11 @@ class Application(Writable):
     def toString(self):
         return self.cmd + self._buildArgString()
 
+    def install(self):
+        string = "sudo apt-get -y install {}".format(self.cmd)
+
+        return string
+
 class TerminalApplication(Application):
     def __init__(self, cmd):
         super(TerminalApplication, self).__init__(cmd)

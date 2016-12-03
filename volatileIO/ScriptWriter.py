@@ -1,5 +1,7 @@
 import Writable
+import os
 from FileCreator import FileCreator
+from volatileApp.Application import Application
 
 
 class ScriptWriter(FileCreator):
@@ -8,23 +10,23 @@ class ScriptWriter(FileCreator):
 
     def __init__(self, filePath):
         super(ScriptWriter, self).__init__(filePath)
-        self.lines = []
+        self.writables = []
 
     def add(self, writable):
-        self.lines.append(writable)
+        self.writables.append(writable)
 
         return self
 
     def andParalell(self, writable):
-        self.lines.append(Writable.ParalellAnd())
-        self.lines.append(writable)
+        self.writables.append(Writable.ParalellAnd())
+        self.writables.append(writable)
 
         return self
 
     def getContent(self):
         content = self._header
 
-        for writable in self.lines:
+        for writable in self.writables:
             content += ' & ' + str(writable)
 
         return content
@@ -35,3 +37,14 @@ class ScriptWriter(FileCreator):
         f = open(self.filePath, 'a')
         f.write(self.getContent())
         f.close()
+
+        installerPath = os.path.dirname(self.filePath) + '/installer.sh'
+        self._createFile(installerPath)
+        f = open(installerPath, 'a')
+        for writable in self.writables:
+            if isinstance(writable, Application):
+                print writable.cmd
+                f.write(writable.install() + '\n')
+
+        f.close()
+
