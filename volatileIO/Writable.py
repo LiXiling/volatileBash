@@ -6,6 +6,9 @@ class Writable(object):
 
     @abc.abstractmethod
     def toString(self):
+        '''
+       :return: a ready-to-execute commandline string for scripting
+       '''
         pass
 
     def __str__(self):
