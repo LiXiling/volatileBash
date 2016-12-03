@@ -1,10 +1,9 @@
 from IPython.core.prefilter import EmacsChecker
-
-from volatileApp.Browser import Browser
-from volatileApp.Application import Application
-from volatileIO.ScriptWriter import ScriptWriter
-from volatileIO.EMLWriter import EMLWriter
 from volatileApp import Editor
+from volatileApp.Browser import Browser
+from volatileIO.EMLWriter import EMLWriter
+from volatileIO.ScriptWriter import ScriptWriter
+
 outDir = "./output/"
 
 firefox = Browser().googleSearch("sha256")
@@ -15,7 +14,7 @@ script = (
     ScriptWriter(outDir + "script.sh")
         .add(firefox)
         .add(gedit)
-        .add(vim) #Unfinished
+        .add(vim)
         .flush()
 )
 
