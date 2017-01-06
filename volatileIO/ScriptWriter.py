@@ -76,7 +76,7 @@ class ScriptWriter(FileCreator):
         self._createFile(installerPath)
 
         #adds installer routine for each Application in writables
-        f = open(installerPath, 'a')
+        f = open(installerPath, 'ab')
         for writable in self.writables:
             if isinstance(writable, Application):
                 f.write(writable.install() + '\n')
@@ -93,7 +93,7 @@ class ScriptWriter(FileCreator):
 
         self._createFile()
 
-        f = open(self.filePath, 'a')
+        f = open(self.filePath, 'ab')
         f.write(self.getFileContent())
         f.close()
 
