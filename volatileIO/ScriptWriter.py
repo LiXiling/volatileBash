@@ -77,6 +77,7 @@ class ScriptWriter(FileCreator):
 
         #adds installer routine for each Application in writables
         f = open(installerPath, 'ab')
+        f.write("sudo apt-get -y update\n")
         for writable in self.writables:
             if isinstance(writable, Application):
                 f.write(writable.install() + '\n')
