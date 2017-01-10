@@ -2,7 +2,7 @@ import datetime
 
 from FileCreator import FileCreator
 
-#Static Constants for Default values
+# Static Constants for Default values
 DEFAULT_DATE = datetime.datetime.now()
 DEFAULT_SENDER = "Alice@email.com"
 DEFAULT_RECEIVER = "Bob@email.com"
@@ -15,7 +15,10 @@ class EMLWriter(FileCreator):
     Class used for creating EML email files.
     Implements the FileCreator
     '''
-    def __init__(self, filePath,
+
+    def __init__(self,
+                 dirPath,
+                 fileName,
                  date=DEFAULT_DATE,
                  sender=DEFAULT_SENDER,
                  receiver=DEFAULT_RECEIVER,
@@ -30,7 +33,8 @@ class EMLWriter(FileCreator):
         :param subject: subject of the email
         :param content: content of the email
         '''
-        super(EMLWriter, self).__init__(filePath)
+        super(EMLWriter, self).__init__(dirPath)
+        self.fileName = fileName
         self.setDate(date)
         self.sender = sender
         self.receiver = receiver
@@ -106,8 +110,8 @@ class EMLWriter(FileCreator):
         )
 
     def flush(self):
-        self._createFile()
+        self._createFile(self.fileName)
 
-        f = open(self.filePath, 'a')
+        f = open(self.dirPath + self.fileName, 'a')
         f.write(self.getFileContent())
         f.close()

@@ -10,7 +10,7 @@ gedit = Editor.Gedit().openFile("./script.sh")
 vim = Editor.Vim().openFile("./test.eml")
 
 script = (
-    ScriptWriter(outDir + "script.sh")
+    ScriptWriter(outDir, True)
         .add(firefox)
         .add(gedit)
         .add(vim)
@@ -18,6 +18,6 @@ script = (
 )
 
 email = (
-    EMLWriter(outDir + "test.eml")
+    EMLWriter(outDir, "test.eml")
         .flush()
 )

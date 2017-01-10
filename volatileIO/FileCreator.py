@@ -8,26 +8,25 @@ class FileCreator(object):
     '''
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, filePath):
+    def __init__(self, dirPath):
         '''
         creates a new FileCreator
         :param filePath: the path to the output file
         '''
-        self.filePath = filePath
+        self.dirPath = dirPath
 
-    def _createFile(self, filePath=None):
+    def _createFile(self, fileName):
+
         '''
         internal function for creating a new empty file on the system
         :param filePath: optional parameter - the path to the output file
                          if None, the path given by Object creation is used
         '''
-        if filePath is None:
-            filePath = self.filePath
 
-        dir = os.path.dirname(filePath)
+        if not os.path.exists(self.dirPath):
+            os.makedirs(self.dirPath)
 
-        if not os.path.exists(dir):
-            os.makedirs(dir)
+        filePath = self.dirPath + '/' + fileName
 
         f = open(filePath, 'w')
         f.close()
