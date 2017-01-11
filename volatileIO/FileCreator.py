@@ -7,6 +7,7 @@ class FileCreator(object):
     Abstract base class for classes creating files
     '''
     __metaclass__ = abc.ABCMeta
+    FILENAME = None
 
     def __init__(self, dirPath):
         '''
@@ -15,7 +16,7 @@ class FileCreator(object):
         '''
         self.dirPath = dirPath
 
-    def _createFile(self, fileName):
+    def _createFile(self):
 
         '''
         internal function for creating a new empty file on the system
@@ -26,7 +27,7 @@ class FileCreator(object):
         if not os.path.exists(self.dirPath):
             os.makedirs(self.dirPath)
 
-        filePath = self.dirPath + '/' + fileName
+        filePath = self.dirPath + '/' + self.FILENAME
 
         f = open(filePath, 'w')
         f.close()
@@ -39,10 +40,13 @@ class FileCreator(object):
         '''
         pass
 
-    @abc.abstractmethod
     def flush(self):
         '''
         writes the File onto the system
         :return: None
         '''
-        pass
+        self._createFile()
+
+        f = open(self.dirPath + self.FILENAME, 'ab')
+        f.write(self.getFileContent())
+        f.close()

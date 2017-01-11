@@ -34,7 +34,7 @@ class EMLWriter(FileCreator):
         :param content: content of the email
         '''
         super(EMLWriter, self).__init__(dirPath)
-        self.fileName = fileName
+        self.FILENAME = fileName
         self.setDate(date)
         self.sender = sender
         self.receiver = receiver
@@ -108,10 +108,3 @@ class EMLWriter(FileCreator):
             self.sender,
             self.content
         )
-
-    def flush(self):
-        self._createFile(self.fileName)
-
-        f = open(self.dirPath + self.fileName, 'a')
-        f.write(self.getFileContent())
-        f.close()

@@ -27,6 +27,9 @@ class ParalellAnd(Writable):
     def toString(self):
         return ' & '
 
+class SequentialAnd(Writable):
+    def toString(self):
+        return ' && '
 
 class XOr(Writable):
     def toString(self):
