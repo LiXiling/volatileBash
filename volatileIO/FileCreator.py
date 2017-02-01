@@ -20,8 +20,6 @@ class FileCreator(object):
 
         '''
         internal function for creating a new empty file on the system
-        :param filePath: optional parameter - the path to the output file
-                         if None, the path given by Object creation is used
         '''
 
         if not os.path.exists(self.dirPath):
@@ -31,6 +29,8 @@ class FileCreator(object):
 
         f = open(filePath, 'w')
         f.close()
+
+        return filePath
 
     @abc.abstractmethod
     def getFileContent(self):
@@ -45,8 +45,8 @@ class FileCreator(object):
         writes the File onto the system
         :return: None
         '''
-        self._createFile()
+        filepath = self._createFile()
 
-        f = open(self.dirPath + self.FILENAME, 'ab')
+        f = open(filepath, 'ab')
         f.write(self.getFileContent())
         f.close()
