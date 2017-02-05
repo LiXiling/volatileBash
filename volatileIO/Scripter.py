@@ -146,7 +146,7 @@ class LimeScriptWriter(HelpScript):
             shutil.copytree("./res/LiME", targetDir);
 
     def getFileContent(self):
-        return 'sudo insmod {0}lime/lime.ko \"path=./memory.dmp format=lime\"\n'.format(
+        return 'sudo insmod {0}lime/lime.ko \"path=./memory.lime format=lime\"\n'.format(
             self.relDirPath
         )
 
