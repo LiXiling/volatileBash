@@ -25,11 +25,12 @@ class Browser(Application):
         self.addArg(url)
         return self
 
-    def googleSearch(self, keyword):
+    def googleSearch(self, searchString):
         '''
         an abstraction for using google-search
         :param keyword: the phrase to be searched for
         :return: the Browser object itself for method chaining
         '''
-        self.addArg("google.de/#q=" + keyword)
+        searchString = searchString.replace(" ", "+")
+        self.addArg("google.de/#q=" + searchString)
         return self
