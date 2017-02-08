@@ -6,15 +6,13 @@ class Browser(Application):
     An specialized class for Browser Applications
     Extends the Application Class
     '''
-    def __init__(self, useChrome=False):
+    def __init__(self):
         '''
         creates a new Browser Object
         :param useChrome: default=False. If True, will use Firefox, else Chrome
         '''
-        if useChrome:
-            super(Browser, self).__init__("chrome")
-        else:
-            super(Browser, self).__init__("firefox")
+
+        super(Browser, self).__init__("sensible-browser")
 
     def visitPage(self, url):
         '''
