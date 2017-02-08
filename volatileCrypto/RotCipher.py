@@ -1,4 +1,4 @@
-def encipher(text, offset, ignoreSpace=True, ignorePunc=False):
+def enc(text, offset, ignoreSpace=True, ignorePunc=False):
     ignoredChars = []
 
     result = ""
