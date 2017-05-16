@@ -1,8 +1,8 @@
 import os
 import shutil
 
-import Writable
-from FileCreator import FileCreator
+import volatileIO.Writable as Writable
+from volatileIO.FileCreator import FileCreator
 from volatileApp.Application import Application
 
 
@@ -107,7 +107,7 @@ class HelpScript(FileCreator):
         self.scripter = scripter
 
     def getPath(self):
-        print self.relDirPath
+        print(self.relDirPath)
         return self.relDirPath + self.FILENAME
 
     def flush(self):

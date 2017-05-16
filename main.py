@@ -28,9 +28,7 @@ script = (
 
 email = (
     EMLWriter(outDir, "test.eml")
-        .setContent(RotCipher.enc(secretMessage, 15))
+        #.setContent(RotCipher.enc(secretMessage, 15))
+	.setContent(secretMessage)
         .flush()
 )
-
-print RotCipher.enc(
-    "S~ }~[34m<83>[m {t[34m<83>[m p}[34m<88>[m~}t z}~[34m<86>[m;[34m<83>[mwt U{pv x[34m<82>[m wt[34m<81>[mqp{ctpCA", -15)

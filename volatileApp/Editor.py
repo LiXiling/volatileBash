@@ -1,4 +1,4 @@
-from Application import *
+from volatileApp.Application import *
 
 
 class Editor(Application):

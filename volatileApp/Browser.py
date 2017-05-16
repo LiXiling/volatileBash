@@ -1,4 +1,4 @@
-from Application import Application
+from volatileApp.Application import Application
 
 
 class Browser(Application):
