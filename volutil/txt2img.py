@@ -2,11 +2,11 @@
 __author__ = "Victor Schümmer"
 __email__ = "victor_ferdinand.schuemmer@stud.tu-darmstadt.de"
 
-import Tkinter as tk
-from PIL import Image, ImageDraw, ImageTk, ImageFont
+import tkinter as tk
+from PIL import Image, ImageDraw, ImageFont, ImageTk
 from io import BytesIO
 
-def txt2img(text, fontname='arial.ttf', fontsize=50, color='black', bgcolor='white'):
+def txt2img(text, fontname='LiberationMono-Regular.ttf', fontsize=50, color='black', bgcolor='white'):
     font = ImageFont.truetype(fontname, fontsize)
     spacing = 1.2
     padding = 20
@@ -20,7 +20,7 @@ def txt2img(text, fontname='arial.ttf', fontsize=50, color='black', bgcolor='whi
         y += lineheight
     file = BytesIO()
     img.save(file, 'png')
-    return file
+    return file.getvalue()
     
 def textsize(lines, font, spacing):
     width = height = 0
@@ -34,7 +34,7 @@ def textsize(lines, font, spacing):
 def show(img):
     root = tk.Tk()
     root.title('txt2img')
-    image = ImageTk.PhotoImage(file = img)
+    image = ImageTk.PhotoImage(data = img)
     root.geometry("%dx%d+%d+%d" % (image.width(), image.height(), 0, 0))
     tk.Label(root, image=image).pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
     root.mainloop()
