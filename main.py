@@ -6,6 +6,7 @@ from volatileApp import Editor
 from volatileApp.Browser import Browser
 from volatileIO.EMLWriter import EMLWriter
 from volatileIO.Scripter import Scripter
+from volutil.txt2img import *
 
 outDir = "./output/"
 
@@ -32,3 +33,5 @@ email = (
 	.setContent(secretMessage)
         .flush()
 )
+
+show(txt2img("TEST"))

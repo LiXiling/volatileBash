@@ -20,6 +20,7 @@ def txt2img(text, fontname='LiberationMono-Regular.ttf', fontsize=50, color='bla
         y += lineheight
     file = BytesIO()
     img.save(file, 'png')
+    img.save('output/pic.jpeg')
     return file.getvalue()
     
 def textsize(lines, font, spacing):
