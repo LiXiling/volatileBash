@@ -1,4 +1,4 @@
-def enc(text, offset, ignoreSpace=True, ignorePunc=False):
+def rot_enc(text, offset, ignoreSpace=True, ignorePunc=False, charRange=94):
     ignoredChars = []
 
     result = ""
@@ -10,7 +10,7 @@ def enc(text, offset, ignoreSpace=True, ignorePunc=False):
 
     for char in text:
         if not char in ignoredChars:
-            result += chr(ord(char) + offset)
+            result += chr((ord(char) - 32 + offset) % charRange + 32)
         else:
             result += char
 

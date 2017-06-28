@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from volatileCrypto import RotCipher
+from volatileCrypto import Cipher
 from volatileApp import Editor
 from volatileApp.Browser import Browser
 from volatileIO.EMLWriter import EMLWriter
@@ -28,7 +28,7 @@ script = (
 
 email = (
     EMLWriter(outDir, "test.eml")
-        #.setContent(RotCipher.enc(secretMessage, 15))
+        #.setContent(Cipher.rot_enc(secretMessage, 15))
 	.setContent(secretMessage)
         .flush()
 )

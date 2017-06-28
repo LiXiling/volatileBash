@@ -1,4 +1,4 @@
-from volatileApp.Application import *
+from volatileApp.Application import Application, TerminalApplication
 
 
 class Editor(Application):
