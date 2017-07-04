@@ -12,9 +12,9 @@ class Browser(Application):
         :param useChrome: default=False. If True, will use Firefox, else Chrome
         '''
 
-        super(Browser, self).__init__("sensible-browser")
+        Application.__init__(self, "sensible-browser")
 
-    def visitPage(self, url):
+    def openURL(self, url):
         '''
         opens the specific url on the browser
         :param url: the url to be visited

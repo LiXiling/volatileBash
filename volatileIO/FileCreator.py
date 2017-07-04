@@ -47,6 +47,6 @@ class FileCreator(object):
         '''
         filepath = self._createFile()
 
-        f = open(filepath, 'a')
-        f.write(self.getFileContent())
-        f.close()
+        with open(filepath, 'a') as f:
+            f.write(self.getFileContent())
+        

@@ -22,7 +22,7 @@ class Gedit(Editor):
     Class modeling the Gedit Editor
     '''
     def __init__(self):
-        super(Gedit, self).__init__("gedit")
+        Editor.__init__(self, "gedit")
 
 
 class Vim(Editor, TerminalApplication):
@@ -30,4 +30,4 @@ class Vim(Editor, TerminalApplication):
     Class modeling the vim Editor
     '''
     def __init__(self):
-        super(Vim, self).__init__("vi")
+        Editor.__init__(self, "vi")

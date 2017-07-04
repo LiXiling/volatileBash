@@ -1,18 +1,32 @@
 import os
+import abc
 import shutil
 
 import volatileIO.Writable as Writable
 from volatileIO.FileCreator import FileCreator
 from volatileApp.Application import Application
 
+class AbstractScripter(FileCreator): 
+    
+    def __init__(self, dirPath):
+        FileCreator.__init__(self, dirPath)
+        self.writables = []
+    
+    @abc.abstractmethod
+    def add(self, writable):
+        pass
 
-class Scripter(FileCreator):
+    def _addWritable(self, writable):
+        self.writables.append(writable)
+        
+    def getWritables(self):
+        return self.writables
+
+class Scripter(AbstractScripter):
     FILENAME = 'main.sh'
 
     def __init__(self, dirPath, enableDumper=False):
-        super(Scripter, self).__init__(dirPath)
-
-        self.writables = []
+        AbstractScripter.__init__(self, dirPath)
 
         self.helperDirPath = 'scripts/'
 
@@ -156,3 +170,5 @@ class LimeScriptWriter(HelpScript):
     def flush(self):
         self._copyLime()
         return super(LimeScriptWriter, self).flush()
+    
+

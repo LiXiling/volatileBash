@@ -29,14 +29,11 @@ class Application(Writable):
         internal function to build one string containing all arguments
         :return: one string containing all arguments
         '''
-        string = ""
-        for arg in self.args:
-            string += " " + arg
-
-        return string
+        
+        return " ".join(self.args)
 
     def toString(self):
-        return self.cmd + self._buildArgString()
+        return self.cmd + " " + self._buildArgString()
 
     def install(self):
         '''
@@ -58,7 +55,7 @@ class TerminalApplication(Application):
         creates a new TerminalApplication object
         :param cmd: the commandline command for this terminal application
         '''
-        super(TerminalApplication, self).__init__(cmd)
+        Application.__init__(self, cmd)
 
     def toString(self):
         return "(gnome-terminal -x sh -c \"" + self.cmd + self._buildArgString() + "; bash\")"
