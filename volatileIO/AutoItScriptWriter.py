@@ -9,7 +9,7 @@ from volatileIO.Scripter import AbstractScripter
 class AutoItScriptWriter(AbstractScripter):
     FILENAME = 'main.au3'
     
-    def __init__(self, dirPath, signalFilePath=""):
+    def __init__(self, dirPath, signalFilePath="signal"):
         AbstractScripter.__init__(self, dirPath)
         self.signalFilePath = signalFilePath
         
