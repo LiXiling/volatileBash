@@ -27,8 +27,10 @@ class WinApplication(Application):
         '''
         '''
         parts = ["local $pid = ShellExecute(\"", self.cmd, "\", \"", 
-                    self._buildArgString(), "\")\n", "WinWaitActive(\"",
-                    self.windowClass(), "\", \"\", 10)"]
+                    self._buildArgString(), "\")\n", "local $hWnd = WinWaitActive(\"",
+                    self.windowClassString(), "\", \"\", 10)"]
+        if hasattr(self, 'windowTitle'):
+            parts += ["\nWinSetTitle($hWnd, \"\", \"", self.windowTitle, "\")"]
         return "".join(parts)
     
     def windowClassString(self):
@@ -36,3 +38,7 @@ class WinApplication(Application):
     
     def windowClass(self):
         return ""
+    
+    def setWindowTitle(self, string):
+        self.windowTitle = string
+        return self
