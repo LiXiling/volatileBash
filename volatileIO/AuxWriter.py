@@ -4,7 +4,7 @@ Created on Mon Jul 10 17:24:05 2017
 
 @author: Victor
 """
-from Writable import Writable
+from volatileIO.Writable import Writable
 
 class RegistryWriter(Writable):
     
@@ -21,6 +21,17 @@ class RegistryWriter(Writable):
         return "\n".join(self.lines)
   
     
+class AutoLogin(RegistryWriter):
+   
+    def enable(self, name, password, domain=""): 
+        regPath = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
+        self.createRegistryEntry("DefaultUserName", name, regPath)
+        self.createRegistryEntry("DefaultPassword", password, regPath)
+        self.createRegistryEntry("DefaultDomainName", domain, regPath)
+        self.createRegistryEntry("AutoAdminLogon", "1", regPath)
+        return self
+    
+
 class ClipboardWriter(Writable):
     
     def __init__(self):
