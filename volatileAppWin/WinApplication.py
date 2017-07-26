@@ -26,13 +26,14 @@ class WinApplication(Application):
     def toString(self):
         '''
         '''
-        parts = ["local $pid = ShellExecute(\"", self.cmd, "\", \"", 
-                    self._buildArgString(), "\")\n", "local $hWnd = WinWaitActive(\"",
-                    self.windowClassString(), "\", \"\", 10)"]
+        script = 'local $pid = ShellExecute("{}", "{}")\nlocal $hWnd = WinWaitActive("{}", "", 10)'\
+                .format(self.cmd, self._buildArgString(), self.windowClassString())
         if hasattr(self, 'windowTitle'):
-            parts += ["\nWinSetTitle($hWnd, \"\", \"", self.windowTitle, "\")"]
-        return "".join(parts)
-    
+            script += '\nWinSetTitle($hWnd, "", "' + self.windowTitle + '")'
+        if hasattr(self, 'windowDimensions'):
+            script += '\nWinMove($hWnd, "", Default, Default, {}, {})'.format(*self.windowDimensions)
+        return script
+        
     def windowClassString(self):
         return "".join(["[CLASS:", self.windowClass(),"]"])
     
@@ -41,4 +42,8 @@ class WinApplication(Application):
     
     def setWindowTitle(self, string):
         self.windowTitle = string
+        return self
+    
+    def setWindowDimensions(self, width, height):
+        self.windowDimensions = (width, height)
         return self
