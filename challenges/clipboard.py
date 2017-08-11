@@ -10,8 +10,8 @@ import shutil
 
 from volatileIO.AuxWriter import ClipboardWriter
 from volatileIO.EMLWriter import EMLWriter
-from volatileIO.AutoItScriptWriter import AutoItScriptWriter
-from volatileAppWin.WinEditor import Notepad
+from volatileIO.Scripter import AutoItScriptWriter
+from volatileApp.Editor import Notepad
 from volutil.Secret import Secret
 
 outDir = "./output/"

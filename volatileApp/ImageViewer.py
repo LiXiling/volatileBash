@@ -18,8 +18,11 @@ class ImageViewer(Application):
         self.addArg(filePath)
 
         return self
-    
-class Eog(ImageViewer):
+      
+class WinImageViewer(ImageViewer):
     
     def __init__(self):
-        super(Eog, self).__init__("eog")
+        Application.__init__(self, "Explorer")
+        
+    def windowClass(self):
+        return "Photo_Lightweight_Viewer"

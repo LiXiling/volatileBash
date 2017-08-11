@@ -8,9 +8,9 @@ Created on Wed Jul 26 15:46:04 2017
 import os
 import shutil
 
-from volatileIO.AutoItScriptWriter import AutoItScriptWriter
-from volatileAppWin.WinApplication import WinCMDApplication
-from volatileAppWin.WinSevenZip import WinSevenZip
+from volatileIO.Scripter import AutoItScriptWriter
+from volatileApp.Application import CMDApplication
+from volatileApp.SevenZip import SevenZip
 from volutil.Secret import Secret
 
 outDir = "./output/"
@@ -27,7 +27,7 @@ Einschätzung: 3/5
 
 passwordSecret = Secret('Password')
 secret = Secret()
-cmd = WinCMDApplication().add(WinSevenZip().createZip('Secret.zip', str(passwordSecret)))
+cmd = CMDApplication().add(SevenZip().createZip('Secret.zip', str(passwordSecret)))
 AutoItScriptWriter(outDir).add(cmd).flush()
 secret.saveZip(outDir+'out.zip', str(passwordSecret))
 

@@ -1,9 +1,9 @@
-from volatileAppWin.WinApplication import WinApplication 
+from volatileApp.Application import Application 
 
-class WinSevenZip(WinApplication):
+class SevenZip(Application):
    
     def __init__(self):
-        WinApplication.__init__(self, "7z")
+        Application.__init__(self, "7z")
         
     def createZip(self, zipfilename, password, *args):
         self.addArg("a")

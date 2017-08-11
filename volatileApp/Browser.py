@@ -6,13 +6,6 @@ class Browser(Application):
     An specialized class for Browser Applications
     Extends the Application Class
     '''
-    def __init__(self):
-        '''
-        creates a new Browser Object
-        :param useChrome: default=False. If True, will use Firefox, else Chrome
-        '''
-
-        Application.__init__(self, "sensible-browser")
 
     def openURL(self, url):
         '''
@@ -32,3 +25,18 @@ class Browser(Application):
         searchString = searchString.replace(" ", "+")
         self.addArg("google.de/#q=" + searchString)
         return self
+
+class Firefox(Browser):
+    '''
+    An specialized class for Browser Applications
+    Extends the Application Class
+    '''
+    def __init__(self):
+        '''
+        creates a new Browser Object
+        '''
+
+        Application.__init__(self, "Firefox")
+    
+    def windowClass(self):
+        return "MozillaWindowClass"

@@ -33,29 +33,46 @@ class Application(Writable):
         return " ".join(self.args)
 
     def toString(self):
-        return self.cmd + " " + self._buildArgString()
-
-    def install(self):
         '''
-        returns the commandline command for installing this Application with apt-get
-        :return: a ready-to-execute commandline string for scripting
         '''
-        string = "sudo apt-get -y install {}".format(self.cmd)
-
-        return string
-
-
-class TerminalApplication(Application):
-    '''
-    A specialized Application implementation used for commandline applications
-    '''
-
-    def __init__(self, cmd):
-        '''
-        creates a new TerminalApplication object
-        :param cmd: the commandline command for this terminal application
-        '''
-        Application.__init__(self, cmd)
-
+        script = 'local $pid = ShellExecute("{}", "{}")\nlocal $hWnd = WinWaitActive("{}", "")'\
+                .format(self.cmd, self._buildArgString(), self.windowClassString())
+        if hasattr(self, 'windowTitle'):
+            script += '\nWinSetTitle($hWnd, "", "' + self.windowTitle + '")'
+        if hasattr(self, 'windowDimensions'):
+            script += '\nWinMove($hWnd, "", Default, Default, {}, {})'.format(*self.windowDimensions)
+        return script
+        
+    def windowClassString(self):
+        return "".join(["[CLASS:", self.windowClass(),"]"])
+    
+    def windowClass(self):
+        return ""
+    
+    def setWindowTitle(self, string):
+        self.windowTitle = string
+        return self
+    
+    def setWindowDimensions(self, width, height):
+        self.windowDimensions = (width, height)
+        return self
+    
+class CMDApplication(Application):
+    
+    def __init__(self):
+        Application.__init__(self, "cmd")
+        self.commands = []
+    
     def toString(self):
-        return "(gnome-terminal -x sh -c \"" + self.cmd + self._buildArgString() + "; bash\")"
+        return '\n'.join([Application.toString(self)] + self.commands)
+    
+    def sendCommand(self, commandString):
+        self.commands.append('Send("{}{{ENTER}}")'.format(commandString))
+        return self
+    
+    def add(self, writable):
+        self.sendCommand('{} {}'.format(writable.cmd, writable._buildArgString()))
+        return self
+    
+    def windowClass(self):
+        return "ConsoleWindowClass"

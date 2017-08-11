@@ -1,4 +1,4 @@
-from volatileApp.Application import Application, TerminalApplication
+from volatileApp.Application import Application
 
 
 class Editor(Application):
@@ -16,18 +16,12 @@ class Editor(Application):
 
         return self
 
-
-class Gedit(Editor):
+class Notepad(Editor):
     '''
-    Class modeling the Gedit Editor
-    '''
-    def __init__(self):
-        Editor.__init__(self, "gedit")
-
-
-class Vim(Editor, TerminalApplication):
-    '''
-    Class modeling the vim Editor
+    Class modeling the Notepad Editor
     '''
     def __init__(self):
-        Editor.__init__(self, "vi")
+        super(Notepad, self).__init__("Notepad")
+        
+    def windowClass(self):
+        return "Notepad"

@@ -8,9 +8,9 @@ Created on Tue Jul 25 13:57:45 2017
 import os
 import shutil
 
-from volatileIO.AutoItScriptWriter import AutoItScriptWriter
+from volatileIO.Scripter import AutoItScriptWriter
 from volatileIO.AuxWriter import AutoLogin
-from volatileAppWin.WinBrowser import Firefox
+from volatileApp.Browser import Firefox
 from volutil.Secret import Secret
 
 outDir = "./output/"

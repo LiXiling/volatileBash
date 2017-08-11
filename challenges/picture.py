@@ -1,8 +1,8 @@
 import os
 import shutil
 
-from volatileAppWin.WinImageViewer import WinImageViewer
-from volatileIO.AutoItScriptWriter import AutoItScriptWriter
+from volatileApp.ImageViewer import WinImageViewer
+from volatileIO.Scripter import AutoItScriptWriter
 from volutil.Secret import Secret
 
 outDir = "./output/"
