@@ -26,7 +26,7 @@ class WinApplication(Application):
     def toString(self):
         '''
         '''
-        script = 'local $pid = ShellExecute("{}", "{}")\nlocal $hWnd = WinWaitActive("{}", "", 10)'\
+        script = 'local $pid = ShellExecute("{}", "{}")\nlocal $hWnd = WinWaitActive("{}", "")'\
                 .format(self.cmd, self._buildArgString(), self.windowClassString())
         if hasattr(self, 'windowTitle'):
             script += '\nWinSetTitle($hWnd, "", "' + self.windowTitle + '")'
@@ -47,3 +47,24 @@ class WinApplication(Application):
     def setWindowDimensions(self, width, height):
         self.windowDimensions = (width, height)
         return self
+    
+class WinCMDApplication(WinApplication):
+    
+    def __init__(self):
+        WinApplication.__init__(self, "cmd")
+        self.commands = []
+    
+    def toString(self):
+        return '\n'.join([WinApplication.toString(self)] + self.commands)
+    
+    def sendCommand(self, commandString):
+        self.commands.append('Send("{}{{ENTER}}")'.format(commandString))
+        return self
+    
+    def add(self, writable):
+        self.sendCommand('{} {}'.format(writable.cmd, writable._buildArgString()))
+        return self
+    
+    def windowClass(self):
+        return "ConsoleWindowClass"
+    

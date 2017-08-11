@@ -39,7 +39,6 @@ class Secret():
         not support encryption, which is the only reason to zip the secret to 
         begin with
         """
-        print(password)
         import os
         import subprocess
         pngName = filename[:-3] + 'png'

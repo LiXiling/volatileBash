@@ -13,6 +13,9 @@ class Writable(object):
 
     def __str__(self):
         return self.toString()
+    
+    def solutionInfo(self):
+        return "No solution info specified for " + self.__class__.__name__
 
 
 class Comment(Writable):
