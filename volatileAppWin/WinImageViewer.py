@@ -6,7 +6,7 @@ Created on Wed Jun 28 14:44:39 2017
 """
 
 from volatileAppWin.WinApplication import WinApplication
-from valatileApp.ImagerViewer import ImageViewer
+from volatileApp.ImageViewer import ImageViewer
    
 class WinImageViewer(WinApplication, ImageViewer):
     
