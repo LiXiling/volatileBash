@@ -13,8 +13,9 @@ class Secret():
         self.secret = 'FLG:(' + (string if string else self._generate()) + ')'
         
     def _generate(self):
-        return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-    
+        #return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+        return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+        
     def obfuscate(self):
         """
         Insert invisible Ascii control character 0x1f (Unit Separator) to
