@@ -28,5 +28,5 @@ Einschätzung: 3/5, 5/5 ohne Hinweise
 passwordSecret = Secret('Password')
 autologin = AutoLogin().enable('Eve', passwordSecret.obfuscate())
 firefox = Firefox().googleSearch('enable autologin windows')
-AutoItScriptWriter(outDir).add(autologin).add(firefox).flush()
+AutoItScriptWriter(outDir).add(autologin).add(firefox).flush().writeSolutionInfo()
 Secret().saveZip(outDir+'out.zip', str(passwordSecret))

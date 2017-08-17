@@ -34,3 +34,9 @@ class AutoItScriptWriter(AbstractScripter):
             'FileDelete("'+self.signalFilePath+'")'] +
             [str(w) for w in self.getWritables()] +
             ['FileWrite("'+self.signalFilePath+'","")'])
+        
+    def writeSolutionInfo(self, filename="solutionInfo.txt"):
+        with open(self._createFile(filename), 'a') as f:
+            for w in self.writables:
+                f.write(w.solutionInfo())
+        return self

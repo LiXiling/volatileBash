@@ -57,6 +57,10 @@ class Application(Writable):
         self.windowDimensions = (width, height)
         return self
     
+    def solutionInfo(self):
+        return "Window title set to: " + self.windowTitle if hasattr(self, 'windowTitle') else ""
+                
+    
 class CMDApplication(Application):
     
     def __init__(self):
@@ -64,15 +68,17 @@ class CMDApplication(Application):
         self.commands = []
     
     def toString(self):
-        return '\n'.join([Application.toString(self)] + self.commands)
+        return '\n'.join([Application.toString(self)] + list(map(self.sendCommand, self.commands)))
     
     def sendCommand(self, commandString):
-        self.commands.append('Send("{}{{ENTER}}")'.format(commandString))
-        return self
+        return 'Send("{}{{ENTER}}")'.format(commandString)
     
     def add(self, writable):
-        self.sendCommand('{} {}'.format(writable.cmd, writable._buildArgString()))
+        self.commands.append('{} {}'.format(writable.cmd, writable._buildArgString()))
         return self
     
     def windowClass(self):
         return "ConsoleWindowClass"
+    
+    def solutionInfo(self):
+        return "\n".join([Application.solutionInfo(self), "The following commands have been executed in cmd:"] + self.commands)

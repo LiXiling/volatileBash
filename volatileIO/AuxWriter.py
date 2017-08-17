@@ -37,7 +37,7 @@ class AutoLogin(RegistryWriter):
         return self
     
     def solutionInfo(self):
-        return 'Windows Autologon enabled:\n' + RegistryWriter.solutionInfo()
+        return 'Windows Autologon enabled:\n' + RegistryWriter.solutionInfo(self)
     
 
 class ClipboardWriter(Writable):

@@ -28,6 +28,6 @@ Einschätzung: 3/5
 passwordSecret = Secret('Password')
 secret = Secret()
 cmd = CMDApplication().add(SevenZip().createZip('Secret.zip', str(passwordSecret)))
-AutoItScriptWriter(outDir).add(cmd).flush()
+AutoItScriptWriter(outDir).add(cmd).flush().writeSolutionInfo()
 secret.saveZip(outDir+'out.zip', str(passwordSecret))
 

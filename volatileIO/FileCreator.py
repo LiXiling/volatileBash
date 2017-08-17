@@ -16,16 +16,18 @@ class FileCreator(object):
         '''
         self.dirPath = dirPath
 
-    def _createFile(self):
-
+    def _createFile(self, filename=None):
         '''
         internal function for creating a new empty file on the system
         '''
 
+        if not filename:
+            filename = self.FILENAME
+            
         if not os.path.exists(self.dirPath):
             os.makedirs(self.dirPath)
 
-        filePath = self.dirPath + '/' + self.FILENAME
+        filePath = self.dirPath + '/' + filename
 
         f = open(filePath, 'w')
         f.close()
@@ -49,4 +51,5 @@ class FileCreator(object):
 
         with open(filepath, 'a') as f:
             f.write(self.getFileContent())
+        return self
         
