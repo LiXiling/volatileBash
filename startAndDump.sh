@@ -13,7 +13,7 @@ do
     PYTHONPATH='.' python3 $CHALLENGEPATH
 
     echo Starting VM
-    virsh snapshot-revert --domain win7 --snapshotname 7_state --running
+    virsh snapshot-revert --domain win7 --snapshotname volatileEve --running
 
     echo Transfering Script Files
     scp -r ./output Eve@$IPADRESS:/home/Eve
