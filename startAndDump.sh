@@ -1,12 +1,16 @@
-IPADRESS=192.168.122.73
-NUMOFDUMPS=2
+#!/bin/bash
+
+NUMOFDUMPS=$1
+IPADRESS=$2
+CHALLENGEPATH=$3
+
 
 for i in $(seq 1 $NUMOFDUMPS)
 do
     echo Starting Dump $i of $NUMOFDUMPS
 
     echo Generating AutoIt Scripts
-    PYTHONPATH='.' python3 ./challenges/picture.py
+    PYTHONPATH='.' python3 $CHALLENGEPATH
 
     echo Starting VM
     virsh snapshot-revert --domain win7 --snapshotname 7_state --running
