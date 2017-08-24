@@ -5,10 +5,13 @@ IPADRESS=$2
 CHALLENGEPATH=$3
 
 
-for i in $(seq 1 $NUMOFDUMPS)
+for i in $(seq -f "%05g" 1 $NUMOFDUMPS)
 do
     echo Starting Dump $i of $NUMOFDUMPS
 
+	mkdir -p ./dumps/$i
+	mv ./output/extra ./dump/$i
+	
     echo Generating AutoIt Scripts
     PYTHONPATH='.' python3 $CHALLENGEPATH
 
@@ -43,6 +46,6 @@ do
 
     echo Dumping VM
     virsh suspend win7
-    virsh dump win7 ./$i.dmp --memory-only --verbose
+    virsh dump win7 ./dumps/$i/dump.dmp --memory-only --verbose
 done
 echo I am Eve

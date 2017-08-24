@@ -34,7 +34,7 @@ class Secret():
         from volutil.txt2img import txt2img
         return txt2img(self.secret).save(filename)
         
-    def saveZip(self, filename = 'out.zip', password = ''):
+    def saveZip(self, path, filename = 'out.zip', password = ''):
         """
         Only for systems where zip or 7z is installed. The python module zipfile does 
         not support encryption, which is the only reason to zip the secret to 
@@ -42,19 +42,20 @@ class Secret():
         """
         import os
         import subprocess
-        pngName = filename[:-3] + 'png'
-        deletePng = not os.path.isfile(pngName) 
+        pngPath = '{}/{}.png'.format(path, filename.split('.')[0])
+        filepath = '{}/{}'.format(path, filename)
+        deletePng = not os.path.isfile(pngPath) 
         if deletePng:
-            self.saveImage(pngName)   
+            self.saveImage(pngPath)   
         try:
-            subprocess.call(['zip', '--password', password, filename, pngName])
+            subprocess.call(['zip', '--password', password, filepath, pngPath])
         except:
             try:
-                subprocess.call(['7z', 'a', filename, pngName, '-p'+password], shell=True)
+                subprocess.call(['7z', 'a', filepath, pngPath, '-p'+password], shell=True)
             except:
                 print('Error: zip or 7z not found')
         if deletePng:
-            os.remove(pngName)
+            os.remove(pngPath)
             
     
     def __str__(self):

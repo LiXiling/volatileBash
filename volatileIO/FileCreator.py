@@ -24,10 +24,10 @@ class FileCreator(object):
         if not filename:
             filename = self.FILENAME
             
-        if not os.path.exists(self.dirPath):
-            os.makedirs(self.dirPath)
-
         filePath = self.dirPath + '/' + filename
+        
+        if not os.path.exists(os.path.dirname(filePath)):
+            os.makedirs(os.path.dirname(filePath))
 
         f = open(filePath, 'w')
         f.close()

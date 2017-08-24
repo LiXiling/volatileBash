@@ -4,20 +4,11 @@ Created on Tue Jul 25 13:57:45 2017
 
 @author: Victor
 """
-
-import os
-import shutil
-
 from volatileIO.Scripter import AutoItScriptWriter
 from volatileIO.AuxWriter import AutoLogin
 from volatileApp.Browser import Firefox
 from volutil.Secret import Secret
 
-outDir = "./output/"
-
-if os.path.exists(outDir):
-    shutil.rmtree(outDir)
- 
 """
 Szenario: Ein Nutzer verwendet überall dasselbe Passwort, welches es rauszufinden gilt.
 In Windows ist Autologin aktiviert und das Passwort lässt sich somit in der
@@ -28,5 +19,6 @@ Einschätzung: 3/5, 5/5 ohne Hinweise
 passwordSecret = Secret('Password')
 autologin = AutoLogin().enable('Eve', passwordSecret.obfuscate())
 firefox = Firefox().googleSearch('enable autologin windows')
-AutoItScriptWriter(outDir).add(autologin).add(firefox).flush().writeSolutionInfo()
-Secret().saveZip(outDir+'out.zip', str(passwordSecret))
+writer = AutoItScriptWriter()
+writer.add(autologin).add(firefox).flush().writeSolutionInfo()
+Secret().saveZip(writer.dirPath, 'out.zip', str(passwordSecret))

@@ -1,4 +1,6 @@
 import abc
+import os
+import shutil
 
 from volatileIO.FileCreator import FileCreator
 
@@ -21,7 +23,9 @@ class AbstractScripter(FileCreator):
 class AutoItScriptWriter(AbstractScripter):
     FILENAME = 'main.au3'
     
-    def __init__(self, dirPath, signalFilePath="signal"):
+    def __init__(self, dirPath="./output/", signalFilePath="signal"):
+        if os.path.exists(dirPath):
+            shutil.rmtree(dirPath)
         AbstractScripter.__init__(self, dirPath)
         self.signalFilePath = signalFilePath
         
@@ -36,7 +40,7 @@ class AutoItScriptWriter(AbstractScripter):
             ['FileWrite("'+self.signalFilePath+'","")'])
         
     def writeSolutionInfo(self, filename="solutionInfo.txt"):
-        with open(self._createFile(filename), 'a') as f:
+        with open(self._createFile('extra/' + filename), 'a') as f:
             for w in self.writables:
                 f.write(w.solutionInfo())
         return self

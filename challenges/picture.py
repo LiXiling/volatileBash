@@ -1,14 +1,6 @@
-import os
-import shutil
-
 from volatileApp.ImageViewer import WinImageViewer
 from volatileIO.Scripter import AutoItScriptWriter
 from volutil.Secret import Secret
-
-outDir = "./output/"
-
-if os.path.exists(outDir):
-    shutil.rmtree(outDir)
 
 """
 Szenario: Bild in Bildbetrachter geöffnet, extrahierbar z.B. über Analyse
@@ -17,7 +9,8 @@ Einschätzung: 4/5, 2/5 falls das Bild mit FileCarver auffindbar ist
 """
 
 filename = "picture.png"
-imageviewer = WinImageViewer().openFile(filename).setWindowTitle(Secret('out.png - 400x102').obfuscate()).setWindowDimensions(400, 102)
-AutoItScriptWriter(outDir).add(imageviewer).flush()
-Secret().saveImage(outDir+filename)
+imageviewer = WinImageViewer().openFile(filename).setWindowTitle(filename + ' - 400x102').setWindowDimensions(400, 102)
+writer = AutoItScriptWriter()
+writer.add(imageviewer).flush().writeSolutionInfo()
+Secret().saveImage(writer.dirPath+filename)
 
