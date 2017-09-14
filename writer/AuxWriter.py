@@ -4,7 +4,7 @@ Created on Mon Jul 10 17:24:05 2017
 
 @author: Victor
 """
-from volatileIO.Writable import Writable
+from writer.Writable import Writable
 
 class RegistryWriter(Writable):
     

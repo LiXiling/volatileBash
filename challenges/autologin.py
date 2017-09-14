@@ -4,10 +4,10 @@ Created on Tue Jul 25 13:57:45 2017
 
 @author: Victor
 """
-from volatileIO.Scripter import AutoItScriptWriter
-from volatileIO.AuxWriter import AutoLogin
-from volatileApp.Browser import Firefox
-from volutil.Secret import Secret
+from writer.Scripter import AutoItScriptWriter
+from writer.AuxWriter import AutoLogin
+from writer.app.Browser import Firefox
+from util.Secret import Secret
 
 """
 Szenario: Ein Nutzer verwendet überall dasselbe Passwort, welches es rauszufinden gilt.

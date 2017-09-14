@@ -1,6 +1,6 @@
-from volatileApp.ImageViewer import WinImageViewer
-from volatileIO.Scripter import AutoItScriptWriter
-from volutil.Secret import Secret
+from writer.app.ImageViewer import WinImageViewer
+from writer.Scripter import AutoItScriptWriter
+from util.Secret import Secret
 
 """
 Szenario: Bild in Bildbetrachter geöffnet, extrahierbar z.B. über Analyse

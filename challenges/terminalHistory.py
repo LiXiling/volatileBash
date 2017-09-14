@@ -4,10 +4,10 @@ Created on Wed Jul 26 15:46:04 2017
 
 @author: Victor
 """
-from volatileIO.Scripter import AutoItScriptWriter
-from volatileApp.Application import CMDApplication
-from volatileApp.SevenZip import SevenZip
-from volutil.Secret import Secret
+from writer.Scripter import AutoItScriptWriter
+from writer.app.Application import CMDApplication
+from writer.app.SevenZip import SevenZip
+from util.Secret import Secret
 
 """
 Szenario: Ein Zipfile wurde mit 7z über eine cmd-Konsole erstellt und verschlüsselt.

@@ -4,11 +4,11 @@ Created on Tue Jul 25 17:01:45 2017
 
 @author: Victor
 """
-from volatileIO.AuxWriter import ClipboardWriter
-from volatileIO.EMLWriter import EMLWriter
-from volatileIO.Scripter import AutoItScriptWriter
-from volatileApp.Editor import Notepad
-from volutil.Secret import Secret
+from writer.AuxWriter import ClipboardWriter
+from writer.EMLWriter import EMLWriter
+from writer.Scripter import AutoItScriptWriter
+from writer.app.Editor import Notepad
+from util.Secret import Secret
 
 """
 Szenario: Es ist ein Textfile geöffnet, indem sich das Flag offensichtlich

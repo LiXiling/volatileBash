@@ -5,7 +5,7 @@ Created on Wed Jun 28 14:44:39 2017
 @author: Victor
 """
 
-from volatileApp.Application import Application
+from .Application import Application
 
 class ImageViewer(Application):
     
