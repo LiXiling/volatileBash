@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Jul 10 17:24:05 2017
 
-@author: Victor
-"""
 from writer.Writable import Writable
 
 class RegistryWriter(Writable):
@@ -24,7 +20,6 @@ class RegistryWriter(Writable):
     def solutionInfo(self):
         return "\n".join(self.solutionLines + ["Volatility commands to detect this include hivelist, printkey and lsadump"])
         
-  
     
 class AutoLogin(RegistryWriter):
    
@@ -34,6 +29,17 @@ class AutoLogin(RegistryWriter):
         self.createRegistryEntry("DefaultPassword", password, regPath)
         self.createRegistryEntry("DefaultDomainName", domain, regPath)
         self.createRegistryEntry("AutoAdminLogon", "1", regPath)
+        
+        # Secret in HKLM may actually be too hard to find. 
+        # (Should be in LSADump, but we could not get it from there..)
+        # Add it again to HKCU where its way easier to find. (volatility printkey)
+        # Maybe the User was a bit sloppy when enabling AutoLogin ;-) 
+        regPath = 'HKCU64\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
+        self.createRegistryEntry("DefaultUserName", name, regPath)
+        self.createRegistryEntry("DefaultPassword", password, regPath)
+        self.createRegistryEntry("DefaultDomainName", domain, regPath)
+        self.createRegistryEntry("AutoAdminLogon", "1", regPath)
+        
         return self
     
     def solutionInfo(self):

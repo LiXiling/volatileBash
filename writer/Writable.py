@@ -1,5 +1,6 @@
-import abc
+# -*- coding: utf-8 -*-
 
+import abc
 
 class Writable(object):
     __metaclass__ = abc.ABCMeta

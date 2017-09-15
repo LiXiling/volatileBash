@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from .Application import Application 
 
 class SevenZip(Application):

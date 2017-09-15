@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 def rot_enc(text, offset, ignoreSpace=True, ignorePunc=False, charRange=94):
     ignoredChars = []
 

@@ -1,5 +1,6 @@
-from .Application import Application
+# -*- coding: utf-8 -*-
 
+from .Application import Application
 
 class Browser(Application):
     '''
@@ -25,6 +26,7 @@ class Browser(Application):
         searchString = searchString.replace(" ", "+")
         self.addArg("google.de/#q=" + searchString)
         return self
+
 
 class Firefox(Browser):
     '''

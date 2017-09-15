@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sat Aug 26 01:56:17 2017
-
-@author: Victor
-"""
 
 from .Application import Application 
 

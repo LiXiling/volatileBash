@@ -1,5 +1,6 @@
-from ..Writable import Writable
+# -*- coding: utf-8 -*-
 
+from ..Writable import Writable
 
 class Application(Writable):
     '''

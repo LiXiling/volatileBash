@@ -1,5 +1,6 @@
-from .Application import Application
+# -*- coding: utf-8 -*-
 
+from .Application import Application
 
 class Editor(Application):
     '''

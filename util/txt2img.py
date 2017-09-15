@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-__author__ = "Victor Schümmer"
-__email__ = "victor_ferdinand.schuemmer@stud.tu-darmstadt.de"
 
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 from io import BytesIO

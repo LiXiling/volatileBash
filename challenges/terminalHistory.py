@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Jul 26 15:46:04 2017
 
-@author: Victor
-"""
 from writer.Scripter import AutoItScriptWriter
 from writer.app.Application import CMDApplication
 from writer.app.SevenZip import SevenZip
@@ -17,8 +13,8 @@ Einschätzung: 3/5
 
 passwordSecret = Secret('Password')
 secret = Secret()
-cmd = CMDApplication().add(SevenZip().createZip('Secret.zip', str(passwordSecret)))
+cmd = CMDApplication().add(SevenZip().createZip('secret.zip', str(passwordSecret)))
 writer = AutoItScriptWriter()
 writer.add(cmd).flush().writeSolutionInfo()
-secret.saveZip(writer.dirPath , 'out.zip', str(passwordSecret))
+secret.saveZip(writer.dirPath , 'secret.zip', str(passwordSecret))
 

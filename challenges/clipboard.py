@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jul 25 17:01:45 2017
+# -*- coding: utf-8 -*-S
 
-@author: Victor
-"""
 from writer.AuxWriter import ClipboardWriter
 from writer.EMLWriter import EMLWriter
 from writer.Scripter import AutoItScriptWriter
@@ -19,10 +15,12 @@ Einschätzung: 2/5
 
 filename = 'out.eml'
 content = "Bob! Don't let anyone know that the secret passphrase is .\n" \
-        "You can use it to log into our file server.\n"\
+        "Just copy it in the login form and delete it afterwards. Don't want somebody to find it.\n"\
         "xoxo, Alice"
+passwordSecret = str(Secret(password=True))
 notepad = Notepad().openFile(filename)
-clipboard = ClipboardWriter().put(Secret().obfuscate())
+clipboard = ClipboardWriter().put(passwordSecret)
 writer = AutoItScriptWriter()
 writer.add(clipboard).add(notepad).flush().writeSolutionInfo()
 EMLWriter(writer.dirPath, filename, content = content).flush()
+Secret().saveZip(writer.dirPath, 'secret.zip', passwordSecret)
