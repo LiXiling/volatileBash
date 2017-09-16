@@ -16,5 +16,5 @@ secret = Secret()
 cmd = CMDApplication().add(SevenZip().createZip('secret.zip', str(passwordSecret)))
 writer = AutoItScriptWriter()
 writer.add(cmd).flush().writeSolutionInfo()
-secret.saveZip(writer.extraDirPath(), 'secret.zip', str(passwordSecret))
+secret.saveZip(writer.extraDirPath , 'secret.zip', str(passwordSecret))
 
