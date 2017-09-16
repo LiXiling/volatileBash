@@ -19,37 +19,57 @@ class RegistryWriter(Writable):
     
     def solutionInfo(self):
         return "\n".join(self.solutionLines + ["Volatility commands to detect this include hivelist, printkey and lsadump"])
-        
+
     
 class AutoLogin(RegistryWriter):
    
-    def enable(self, name, password, domain=""): 
+    def enable(self, name, password, domain="", easy=False): 
         regPath = 'HKLM64\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
         self.createRegistryEntry("DefaultUserName", name, regPath)
         self.createRegistryEntry("DefaultPassword", password, regPath)
         self.createRegistryEntry("DefaultDomainName", domain, regPath)
         self.createRegistryEntry("AutoAdminLogon", "1", regPath)
         
-        # Secret in HKLM may actually be too hard to find. 
-        # (Should be in LSADump, but we could not get it from there..)
-        # Add it again to HKCU where its way easier to find. (volatility printkey)
-        # Maybe the User was a bit sloppy when enabling AutoLogin ;-) 
-        regPath = 'HKCU64\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
-        self.createRegistryEntry("DefaultUserName", name, regPath)
-        self.createRegistryEntry("DefaultPassword", password, regPath)
-        self.createRegistryEntry("DefaultDomainName", domain, regPath)
-        self.createRegistryEntry("AutoAdminLogon", "1", regPath)
-        
+        if (easy):
+            # Secret in HKLM may actually be too hard to find. 
+            # (Should be in LSADump, but we could not get it from there..)
+            # Add it again to HKCU where its way easier to find. (volatility printkey)
+            # Maybe the User was a bit sloppy when enabling AutoLogin ;-) 
+            regPath = 'HKCU64\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
+            self.createRegistryEntry("DefaultUserName", name, regPath)
+            self.createRegistryEntry("DefaultPassword", password, regPath)
+            self.createRegistryEntry("DefaultDomainName", domain, regPath)
+            self.createRegistryEntry("AutoAdminLogon", "1", regPath)
+            
         return self
     
     def solutionInfo(self):
         return 'Windows Autologon enabled:\n' + RegistryWriter.solutionInfo(self)
     
-
+    
+class PasswordWriter(Writable):
+    
+    def __init__(self):
+        self.password = ""
+        
+    def setPassword(self, password):
+        self.password = password
+        return self
+    
+    def toString(self):
+        return '#RequireAdmin\n' \
+            '$objUser = ObjGet("WinNT://" & @ComputerName & "/" & @UserName)\n' \
+            '$objUser.SetPassword("{}")\n' \
+            '$objUser.SetInfo\n'.format(self.password)
+    
+    def solutionInfo(self):
+        return 'User password set to: ' + self.password
+    
+    
 class ClipboardWriter(Writable):
     
     def __init__(self):
-        self.value = None
+        self.value = ''
         
     def put(self, value):
         self.value = value
@@ -59,4 +79,4 @@ class ClipboardWriter(Writable):
         return 'ClipPut("' + str(self.value) + '")'
     
     def solutionInfo(self):
-        return "The clipboard contains: " + str(self.value)
+        return 'The clipboard contains: ' + str(self.value)

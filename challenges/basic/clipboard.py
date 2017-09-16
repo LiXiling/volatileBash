@@ -7,13 +7,13 @@ from writer.app.Editor import Notepad
 from util.Secret import Secret
 
 """
-Szenario: Es ist ein Textfile geöffnet, indem sich das Flag offensichtlich
-befinden müsste, doch es wurde anscheinend entfernt. Das Secret befindet sich 
+Szenario: Es ist ein Textfile geoeffnet, indem sich das Flag offensichtlich
+befinden muesste, doch es wurde anscheinend entfernt. Das Secret befindet sich 
 im Clipboard.
-Einschätzung: 2/5
+Einschaetzung: 2/5
 """
 
-filename = 'out.eml'
+filename = 'password.eml'
 content = "Bob! Don't let anyone know that the secret passphrase is .\n" \
         "Just copy it in the login form and delete it afterwards. Don't want somebody to find it.\n"\
         "xoxo, Alice"
@@ -23,4 +23,4 @@ clipboard = ClipboardWriter().put(passwordSecret)
 writer = AutoItScriptWriter()
 writer.add(clipboard).add(notepad).flush().writeSolutionInfo()
 EMLWriter(writer.dirPath, filename, content = content).flush()
-Secret().saveZip(writer.dirPath, 'secret.zip', passwordSecret)
+Secret().saveZip(writer.extraDirPath, 'secret.zip', passwordSecret)
