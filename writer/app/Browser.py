@@ -4,7 +4,7 @@ from .Application import Application
 
 class Browser(Application):
     '''
-    An specialized class for Browser Applications
+    A specialized class for Browser Applications
     Extends the Application Class
     '''
 
@@ -29,10 +29,7 @@ class Browser(Application):
 
 
 class Firefox(Browser):
-    '''
-    An specialized class for Browser Applications
-    Extends the Application Class
-    '''
+
     def __init__(self):
         '''
         creates a new Browser Object
@@ -42,3 +39,12 @@ class Firefox(Browser):
     
     def windowClass(self):
         return "MozillaWindowClass"
+
+class InternetExplorer(Browser):
+    
+    def __init__(self):
+        Application.__init__(self, "Iexplore")
+        
+    def windowClass(self):
+        return "IEFrame"
+    

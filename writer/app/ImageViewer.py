@@ -11,7 +11,6 @@ class ImageViewer(Application):
         :return: the Editor object for method chaining
         '''
         self.addArg(filePath)
-
         return self
       
 class WinImageViewer(ImageViewer):
@@ -21,3 +20,11 @@ class WinImageViewer(ImageViewer):
         
     def windowClass(self):
         return "Photo_Lightweight_Viewer"
+    
+class IrfanView(ImageViewer):
+    
+    def __init__(self):
+        Application.__init__(self, "i_view32")
+        
+    def windowClass(self):
+        return "IrfanView"

@@ -11,10 +11,10 @@ Das Passwort laesst sich im Klartext in der cmd-history finden.
 Einschaetzung: 3/5
 """
 
-passwordSecret = Secret('Password')
+passwordSecret = str(Secret(password=True))
 secret = Secret()
-cmd = CMDApplication().add(SevenZip().createZip('secret.zip', str(passwordSecret)))
+cmd = CMDApplication().add(SevenZip().createZip('secret.zip', passwordSecret))
 writer = AutoItScriptWriter()
 writer.add(cmd).flush().writeSolutionInfo()
-secret.saveZip(writer.extraDirPath , 'secret.zip', str(passwordSecret))
+secret.saveZip(writer.extraDirPath , 'secret.zip', passwordSecret)
 

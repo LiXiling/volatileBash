@@ -35,18 +35,19 @@ class Secret():
     def asImage(self):
         return txt2img(self.secret).img_data()
     
-    def saveImage(self, filename = 'out.png'):
-        return txt2img(self.secret).save(filename)
+    def saveImage(self, path, filename = 'out.png'):
+        return txt2img(self.secret).save(pathCat(path, filename))
         
-    def saveZip(self, path, filename = 'out.zip', password = ''):
+    def saveZip(self, path, filename = 'out.zip', password = '', deletePng = False):
         # Only for systems where zip or 7z is installed. The python module zipfile does 
         # not support encryption, which is the only reason to zip the secret to 
         # begin with.        
-        pngPath = '{}/{}.png'.format(path, filename.split('.')[0])
-        filepath = '{}/{}'.format(path, filename)
-        deletePng = not os.path.isfile(pngPath) 
-        if deletePng:
-            self.saveImage(pngPath)   
+        pngName = '{}.png'.format(filename.split('.')[0])
+        pngPath = pathCat(path, pngName)
+        filepath = pathCat(path, filename)
+        # deletePng = not os.path.isfile(pngPath) 
+        #if deletePng:
+        self.saveImage(path, pngName)   
         try:
             subprocess.call(['zip', '--password', password, filepath, pngPath])
         except:
@@ -59,3 +60,6 @@ class Secret():
             
     def __str__(self):
         return self.secret
+
+def pathCat(head, tail):
+    return '{}/{}'.format(head, tail)
