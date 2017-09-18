@@ -24,7 +24,7 @@ class Browser(Application):
         :return: the Browser object itself for method chaining
         '''
         searchString = searchString.replace(" ", "+")
-        self.addArg("google.de/#q=" + searchString)
+        self.addArg("www.google.de/#q=" + searchString)
         return self
 
 
