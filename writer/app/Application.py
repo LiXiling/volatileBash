@@ -36,7 +36,8 @@ class Application(Writable):
     def toString(self):
         '''
         '''
-        script = 'local $pid = ShellExecute("{}", "{}")\nlocal $hWnd = WinWaitActive("{}", "")'\
+        script = 'local $pid = ShellExecute("{}", "{}")\nlocal $hWnd = WinWaitActive("{}", "")\n'\
+                'Sleep(2000)'\
                 .format(self.cmd, self._buildArgString(), self.windowClassString())
         if hasattr(self, 'windowTitle'):
             script += '\nWinSetTitle($hWnd, "", "' + self.windowTitle + '")'
