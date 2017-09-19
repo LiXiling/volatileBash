@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import abc
 from ..Writable import Writable
 
 class Application(Writable):
+    __metaclass__ = abc.ABCMeta
+    
     '''
     A base class to model basic Applications.
     Implements Writable
@@ -13,6 +16,7 @@ class Application(Writable):
         creates a new Application Object
         :param cmd: the commandline command for this application
         '''
+        Writable.__init__(self)
         self.cmd = cmd
         self.args = []
 
@@ -46,21 +50,22 @@ class Application(Writable):
         return script
         
     def windowClassString(self):
-        return "".join(["[CLASS:", self.windowClass(),"]"])
+        return "[CLASS:{}]".format(self.windowClass())
     
+    @abc.abstractmethod
     def windowClass(self):
-        return ""
+        pass
     
     def setWindowTitle(self, string):
         self.windowTitle = string
+        self.addSolutionLine('Window title of {} set to: {}. This can be found with '\
+                             '"screenshot" or "windows".'\
+                             .format(self.cmd, self.windowTitle))
         return self
     
     def setWindowDimensions(self, width, height):
         self.windowDimensions = (width, height)
         return self
-    
-    def solutionInfo(self):
-        return "Window title set to: " + self.windowTitle if hasattr(self, 'windowTitle') else ""
                 
     
 class CMDApplication(Application):
@@ -76,11 +81,12 @@ class CMDApplication(Application):
         return 'Send("{}{{ENTER}}")'.format(commandString)
     
     def add(self, writable):
-        self.commands.append('{} {}'.format(writable.cmd, writable._buildArgString()))
+        command = '{} {}'.format(writable.cmd, writable._buildArgString())
+        self.commands.append(command)
+        self.addSolutionLine('The command "{}" has been executed in a cmd console. '\
+                             'To see the command one can use "cmdscan".'.format(command))
         return self
     
     def windowClass(self):
         return "ConsoleWindowClass"
     
-    def solutionInfo(self):
-        return "\n".join([Application.solutionInfo(self), "The following commands have been executed in cmd:"] + self.commands)

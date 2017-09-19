@@ -14,7 +14,10 @@ class Editor(Application):
         :return: the Editor object for method chaining
         '''
         self.addArg(filePath)
-
+        self.addSolutionLine('The file {} is opened in {}. '\
+                             'Ways to get the file content include "dumpfiles -Q" '\
+                             'or retrieving it from MFT table, if the filesize is below 1KB ("mftparser").'\
+                             .format(filePath, self.cmd))
         return self
 
 class Notepad(Editor):

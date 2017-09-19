@@ -12,6 +12,8 @@ class SevenZip(Application):
         self.addArg("-p"+password)
         self.addArg(zipfilename)
         self.addArg(" ".join(args))
+        self.addSolutionLine('A zip with password: "{}" containing files: {} has been created.'\
+                             .format(password, ", ".join(args)))
         return self
         
     def windowClass(self):

@@ -15,6 +15,9 @@ class Browser(Application):
         :return: the Browser object for method chaining
         '''
         self.addArg(url)
+        self.addSolutionLine('The URL "{}" is opened in {}. '\
+                             'In case of Internet Explorer, this can be retrieved with "iehistory".'\
+                             .format(url, self.cmd))
         return self
 
     def googleSearch(self, searchString):
@@ -24,9 +27,8 @@ class Browser(Application):
         :return: the Browser object itself for method chaining
         '''
         searchString = searchString.replace(" ", "+")
-        self.addArg("www.google.de/#q=" + searchString)
-        return self
-
+        self.openURL("www.google.de/#q=" + searchString)
+        return self            
 
 class Firefox(Browser):
 

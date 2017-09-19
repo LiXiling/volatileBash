@@ -14,7 +14,7 @@ Einschaetzung: 2/5
 """
 
 filename = 'password.eml'
-content = "Bob! Don't let anyone know that the secret passphrase is .\n" \
+content = "Eve! Don't let anyone know that the secret passphrase is .\n" \
         "Just copy it in the login form and delete it afterwards. Don't want somebody to find it.\n"\
         "xoxo, Alice"
 passwordSecret = str(Secret(password=True))

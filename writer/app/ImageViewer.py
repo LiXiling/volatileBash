@@ -11,6 +11,11 @@ class ImageViewer(Application):
         :return: the Editor object for method chaining
         '''
         self.addArg(filePath)
+        self.addSolutionLine('The picture {} is opened in {}. '\
+                             'Ways to get the picture content include "dumpfiles -Q" '\
+                             'or importing the process data into GIMP '\
+                             '(change file extension to .data).'\
+                             .format(filePath, self.cmd))
         return self
       
 class WinImageViewer(ImageViewer):

@@ -7,7 +7,7 @@ from writer.FileCreator import FileCreator
 # Static Constants for Default values
 DEFAULT_DATE = datetime.datetime.now()
 DEFAULT_SENDER = "Alice@email.com"
-DEFAULT_RECEIVER = "Bob@email.com"
+DEFAULT_RECEIVER = "Eve@email.com"
 DEFAULT_SUBJECT = "This is not a secret Mail"
 DEFAULT_CONTENT = "The secret is herbalTea"
 
