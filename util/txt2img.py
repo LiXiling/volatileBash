@@ -1,18 +1,28 @@
 # -*- coding: utf-8 -*-
 
-from PIL import Image, ImageDraw, ImageFont, ImageTk
+from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
-import tkinter as tk
+import os
 
 class txt2img():
     
+    """A converter that generates an image containing a given text."""
     
     def __init__(self, text, fontname='LiberationMono-Regular.ttf', fontsize=50, color='black', bgcolor='white'):
+        """
+        Args:
+            text (str): the text to be converted
+            fontname (str, optional): filename of the true type font to use.
+                Defaults to: LiberationMono-Regular.ttf
+            fontsize (int, optional): the font size in points
+            color (str, optional): font color
+            bgcolor (str, optional): background color
+        """
         font = ImageFont.truetype(fontname, fontsize)
         spacing = 1.2
         padding = 20
         lines = text.splitlines()
-        size = self.textsize(lines, font, spacing)
+        size = self._textsize(lines, font, spacing)
         lineheight = size[1] / len(lines)
         img = Image.new('RGB', (size[0]+2*padding, size[1]+2*padding), bgcolor)
         y = padding
@@ -23,7 +33,8 @@ class txt2img():
         img.save(file, 'png')
         self.png_image = file.getvalue()
         
-    def textsize(self, lines, font, spacing):
+    def _textsize(self, lines, font, spacing):
+        """Calculates the image dimensions needed to fit the whole text."""
         width = height = 0
         d = ImageDraw.Draw(Image.new('RGB', (0,0)))
         for l in lines:
@@ -33,6 +44,12 @@ class txt2img():
         return int(width), int(height)
           
     def show(self):
+        try:
+            from PIL import ImageTk
+            import tkinter as tk
+        except:
+            print("cannot find tkinter")
+            return
         root = tk.Tk()
         root.title('txt2img')
         image = ImageTk.PhotoImage(data = self.png_image)
@@ -41,8 +58,12 @@ class txt2img():
         root.mainloop()
         
     def img_data(self):
+        """Returns:
+            bytes: converted image as bytes
+        """
         return self.png_image
         
     def save(self, filename='out.png'):
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename, 'wb') as f:
             f.write(self.png_image)
