@@ -4,23 +4,21 @@ import abc
 import os
 
 class FileCreator(object):
-    '''
+    """
     Abstract base class for classes creating files
-    '''
+    """
     __metaclass__ = abc.ABCMeta
     FILENAME = None
 
     def __init__(self, dirPath):
-        '''
-        creates a new FileCreator
+        """
+        Creates a new FileCreator.
         :param filePath: the path to the output file
-        '''
+        """
         self.dirPath = dirPath
 
     def _createFile(self, filename=None):
-        '''
-        internal function for creating a new empty file on the system
-        '''
+        """internal function for creating a new empty file on the system"""
 
         if not filename:
             filename = self.FILENAME
@@ -37,20 +35,33 @@ class FileCreator(object):
 
     @abc.abstractmethod
     def getFileContent(self):
-        '''
-        abstract method. returns the content of the modeled File
-        :return: a string representation of the File's content
-        '''
+        """
+        Abstract method. Returns the content of the modeled file.
+        :return: a string representation of the file's content
+        """
         pass
 
     def flush(self):
-        '''
-        writes the File onto the system
+        """
+        Writes the file to the system.
         :return: None
-        '''
+        """
         filepath = self._createFile()
 
         with open(filepath, 'a') as f:
             f.write(self.getFileContent())
         return self
+
+class FileWriter(FileCreator):
+    
+    def __init__(self, dirPath='./output/extra', filename='out.txt'):
+        FileCreator.__init__(self, dirPath)
+        self.content = ''
+        self.FILENAME = filename
+    
+    def setFileContent(self, content):
+        self.content = content
+        return self
         
+    def getFileContent(self):
+        return self.content

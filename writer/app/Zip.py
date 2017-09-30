@@ -9,7 +9,7 @@ class SevenZip(Application):
         
     def createZip(self, zipfilename, password, *args):
         self.addArg("a")
-        self.addArg("-p"+password)
+        self.addArg("-p{}".format(password))
         self.addArg(zipfilename)
         self.addArg(" ".join(args))
         self.addSolutionLine('A zip with password: "{}" containing files: {} has been created.'\
