@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-
-from writer.Scripter import AutoItScriptWriter
-from writer.AuxWriter import AutoLogin
-from writer.app.Browser import InternetExplorer
-from util.Secret import Secret
-
 """
 Szenario: Ein Nutzer verwendet ueberall dasselbe Passwort, welches es rauszufinden gilt.
 In Windows ist Autologin aktiviert und das Passwort laesst sich somit in der
@@ -14,9 +8,43 @@ volatility iehistory nachvollziehen.
 Einschaetzung: 3/5 easy, 5/5 hard
 """
 
-passwordSecret = str(Secret(password=True))
-autologin = AutoLogin().enable('Eve', passwordSecret, easy=True)
-firefox = InternetExplorer().googleSearch('enable autologin windows')
+##########################
+# imports                #
+##########################
+
+from writer.Scripter import AutoItScriptWriter
+from writer.AuxWriter import AutoLogin
+from writer.app.Browser import InternetExplorer
+from util.Secret import Secret, PasswordSecret
+
+##########################
+# setup writer           #
+##########################
+
 writer = AutoItScriptWriter()
-writer.add(autologin).add(firefox).flush().writeSolutionInfo()
+
+##########################
+# generate secrets       #
+##########################
+
+passwordSecret = str(PasswordSecret())
 Secret().saveZip(writer.extraDirPath, 'secret.zip', passwordSecret)
+
+##########################
+# setup applications     #
+##########################
+
+autologin = AutoLogin().enable('Eve', passwordSecret, easy=True)
+ie = InternetExplorer().googleSearch('enable autologin windows')
+
+##########################
+# applications to writer #
+##########################
+
+writer.add(autologin).add(ie)
+
+##########################
+# generate script        #
+##########################
+
+writer.flush().writeSolutionInfo()
